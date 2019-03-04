@@ -44,6 +44,27 @@ public class TodoController {
       filterDoc = filterDoc.append("owner", ownerRegQuery);
     }
 
+    if (queryParams.containsKey("status")) {
+      Boolean targetStatus = Boolean.parseBoolean(queryParams.get("status")[0]);
+      filterDoc = filterDoc.append("status", targetStatus);
+    }
+
+    if (queryParams.containsKey("body")) {
+      String targetBody = (queryParams.get("body")[0]);
+      Document bodyRegQuery = new Document();
+      bodyRegQuery.append("$regex", targetBody);
+      bodyRegQuery.append("$options", "i");
+      filterDoc = filterDoc.append("body", bodyRegQuery);
+    }
+
+    if (queryParams.containsKey("category")) {
+      String targetCategory = (queryParams.get("category")[0]);
+      Document categoryRegQuery = new Document();
+      categoryRegQuery.append("$regex", targetCategory);
+      categoryRegQuery.append("$options", "i");
+      filterDoc = filterDoc.append("category", categoryRegQuery);
+    }
+
     FindIterable<Document> matchingTodos = todoCollection.find(filterDoc);
 
     return serializeIterable(matchingTodos);
