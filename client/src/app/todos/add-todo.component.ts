@@ -17,26 +17,25 @@ export class AddTodoComponent implements OnInit {
 
   add_todo_validation_messages = {
     'owner': [
-      {type: 'required', message: 'Owner is required'},
-      {type: 'minlength', message: 'Owner must be at least 2 characters long'},
-      {type: 'maxlength', message: 'Owner cannot be more than 25 characters long'},
-      {type: 'pattern', message: 'Owner must contain only numbers and letters'},
-      {type: 'existingOwner', message: 'Owner has already been taken'}
+      {type: 'required', message: 'Required'},
+      {type: 'minlength', message: 'Must be at least 2 characters long'},
+      {type: 'maxlength', message: 'Cannot be more than 25 characters long'},
+      {type: 'pattern', message: 'Must contain only numbers and letters'},
     ],
 
     'status': [
-      {type: 'pattern', message: 'status must be a boolean'},
-      {type: 'minlength', message: 'status must be at least 4 characters long'},
-      {type: 'maxlength', message: 'status may not be greater than 5 characters long'},
-      {type: 'required', message: 'status is required'}
+      {type: 'pattern', message: 'Must be true or false'},
+      {type: 'minlength', message: 'Must be at least 4 characters long'},
+      {type: 'maxlength', message: 'May not be greater than 5 characters long'},
+      {type: 'required', message: 'Required'}
     ],
 
     'body': [
-      {type: 'required', message: 'status is required'}
+      {type: 'required', message: 'Required'}
     ],
 
     'category': [
-      {type: 'required', message: 'status is required'}
+      {type: 'required', message: 'Required'}
     ]
   };
 
@@ -52,7 +51,7 @@ export class AddTodoComponent implements OnInit {
       ])),
 
       status: new FormControl('status', Validators.compose([
-        Validators.pattern('true|false/i'),
+        Validators.pattern(/(true|false)/i),
         Validators.min(4),
         Validators.max(5),
         Validators.required
