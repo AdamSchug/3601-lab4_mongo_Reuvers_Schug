@@ -54,7 +54,7 @@ export class TodoListComponent implements OnInit {
     });
   }
 
-  public filterTodos(searchOwner: string, searchStatus: string): Todointerface[] {
+  public filterTodos(searchOwner: string, searchStatus: string, searchBody: string, searchCategory: string): Todointerface[] {
 
     this.filteredTodos = this.todos;
 
@@ -69,9 +69,29 @@ export class TodoListComponent implements OnInit {
 
     // Filter by age
     if (searchStatus != null) {
+      searchStatus = searchStatus.toLocaleLowerCase();
+
       this.filteredTodos = this.filteredTodos.filter(todo => {
         return !searchStatus || todo.status.toString().toLowerCase().indexOf(searchStatus) !== -1;
       });
+    }
+
+    // Filter by body
+    if (searchBody != null) {
+      searchBody = searchBody.toLocaleLowerCase();
+
+      this.filteredTodos = this.filteredTodos.filter(todo => {
+        return !searchBody || todo.body.toLowerCase().indexOf(searchBody) !== -1;
+      });
+    }
+
+    // Filter by category
+    if (searchCategory != null) {
+      searchCategory = searchCategory.toLocaleLowerCase();
+
+      this.filteredTodos = this.filteredTodos.filter(todo => {
+        return !searchCategory || todo.category.toLowerCase().indexOf(searchCategory) !== -1;
+      })
     }
 
     return this.filteredTodos;
@@ -92,7 +112,7 @@ export class TodoListComponent implements OnInit {
     todos.subscribe(
       todos => {
         this.todos = todos;
-        this.filterTodos(this.todoOwner, this.todoStatus);
+        this.filterTodos(this.todoOwner, this.todoStatus, this.todoBody, this.todoCategory);
       },
       err => {
         console.log(err);
